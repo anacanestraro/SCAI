@@ -3,7 +3,7 @@ version: "3.9"
 services:
   web:
     build: .
-    container_name: gerenciamento_app
+    container_name: scai_app
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
@@ -16,13 +16,15 @@ services:
   
   db:
     image: postgres:16
-    container_name: gerenciamento_bd
+    container_name: scai_bd
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: gerenciamento_db
-      POSTGRES_USER: gerenciamento_user
-      POSTGRES_PASSWORD: gerenciamento_pass
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
 
 volumes:
   postgres_data:
